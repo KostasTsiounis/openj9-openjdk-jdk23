@@ -340,7 +340,10 @@ public final class SunJCE extends Provider {
         attrs.clear();
         attrs.put("SupportedKeyFormats", "RAW");
 
-        if (useNativeChaCha20Cipher && (NativeCrypto.getVersionIfAvailable() >= NativeCrypto.OPENSSL_VERSION_1_1_0)) {
+        if (useNativeChaCha20Cipher
+            && NativeCrypto.isAlgorithmAvailable("ChaCha20")
+            && (NativeCrypto.getVersionIfAvailable() >= NativeCrypto.OPENSSL_VERSION_1_1_0)
+        ) {
             ps("Cipher", "ChaCha20",
                     "com.sun.crypto.provider.NativeChaCha20Cipher$ChaCha20Only",
                     null, attrs);
